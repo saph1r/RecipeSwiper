@@ -20,14 +20,16 @@ public class Rezept extends RealmObject implements Serializable {
     private String name;
     private String zubereitung;
     private RealmList<Zutat> zutaten;
+    private int imageResourceId;
 
     public Rezept(){
 
     }
 
-    public Rezept(String name, String zubereitung) {
+    public Rezept(String name, String zubereitung,int iRid) {
         this.name = name;
         this.zubereitung = zubereitung;
+        this.imageResourceId=iRid;
     }
 
     public String getName() {
