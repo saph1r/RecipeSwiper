@@ -23,8 +23,8 @@ public class MainActivity extends AppCompatActivity {
 
 
     private TextView mTextMessage;
-    private ArrayList<String> al;
-    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<SwipeCard> al;
+    private SwipeCardAdapter arrayAdapter;
     private int i;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -58,13 +58,13 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) findViewById(R.id.swipe);
 
-        al = new ArrayList<String>();
-        al.add("php");
-        al.add("c");
-        al.add("python");
-        al.add("java");
+        al = new ArrayList<SwipeCard>();
+        al.add(new SwipeCard("card1text1", R.drawable.bb));
+        al.add(new SwipeCard("card2text1", R.drawable.aa));
 
-        arrayAdapter = new ArrayAdapter<String>(this, R.layout.item, R.id.helloText, al);
+
+        arrayAdapter = new SwipeCardAdapter(this, getLayoutInflater(), al);
+
 
         flingAdapterView.setAdapter(arrayAdapter);
         flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAdapterAboutToEmpty(int i) {
-                al.add("XML ".concat(String.valueOf(i)));
+                al.add(new SwipeCard("card1text1", R.drawable.bb));
                 arrayAdapter.notifyDataSetChanged();
                 Log.d("LIST", "notified");
                 i++;
@@ -95,9 +95,9 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onScroll(float scrollProgressPercent) {
-                View view = flingAdapterView.getSelectedView();
-                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
-                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
+//                View view = flingAdapterView.getSelectedView();
+//                view.findViewById(R.id.item_swipe_right_indicator).setAlpha(scrollProgressPercent < 0 ? -scrollProgressPercent : 0);
+//                view.findViewById(R.id.item_swipe_left_indicator).setAlpha(scrollProgressPercent > 0 ? scrollProgressPercent : 0);
             }
         });
 
