@@ -2,26 +2,27 @@ package de.dortmund.dohack2017.recipeswiper.models;
 
 import android.media.Image;
 
+import java.io.Serializable;
 import java.util.List;
-
-import io.realm.RealmModel;
+import java.util.UUID;
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * Created by Sebastian on 30.09.2017.
  */
 
-public class Rezept implements RealmModel {
-    private Image image;
+public class Rezept extends RealmObject implements Serializable {
+    @PrimaryKey
+    private String id = UUID.randomUUID().toString();
     private String name;
     private String zubereitung;
     private List<Zutat> zutaten;
 
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
+    public Rezept(String name, String zubereitung, List<Zutat> zutaten) {
+        this.name = name;
+        this.zubereitung = zubereitung;
+        this.zutaten = zutaten;
     }
 
     public String getName() {

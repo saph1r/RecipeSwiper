@@ -2,8 +2,12 @@ package de.dortmund.dohack2017.recipeswiper.db;
 
 import android.util.Log;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 import io.realm.Realm;
+import io.realm.RealmResults;
 import io.realm.annotations.RealmClass;
 
 /**
@@ -34,5 +38,9 @@ public class RecipeSwiperDataSource {
                 realm.insert(rezept);
             }
         });
+    }
+    public List<Rezept> getAllRezepts(){
+        RealmResults rm = realm.where(Rezept.class).findAll();
+        return(ArrayList<Rezept>) realm.copyFromRealm(rm);
     }
 }
