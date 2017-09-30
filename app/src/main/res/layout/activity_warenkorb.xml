@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context="de.dortmund.dohack2017.recipeswiper.features.MainActivity">
+    tools:context="de.dortmund.dohack2017.recipeswiper.features.WarenkorbActivity">
 
     <FrameLayout
         android:id="@+id/content"
