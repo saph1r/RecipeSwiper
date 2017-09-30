@@ -4,11 +4,13 @@ import android.media.Image;
 
 import java.util.List;
 
+import io.realm.RealmModel;
+
 /**
  * Created by Sebastian on 30.09.2017.
  */
 
-public class Rezept {
+public class Rezept implements RealmModel {
     private Image image;
     private String name;
     private String zubereitung;

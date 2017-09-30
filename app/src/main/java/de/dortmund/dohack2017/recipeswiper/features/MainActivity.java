@@ -9,7 +9,9 @@ import android.widget.TextView;
 
 import de.dortmund.dohack2017.recipeswiper.R;
 
+
 public class MainActivity extends AppCompatActivity {
+
 
     private TextView mTextMessage;
 
