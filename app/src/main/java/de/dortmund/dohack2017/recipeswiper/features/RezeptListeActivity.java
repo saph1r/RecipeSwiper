@@ -1,5 +1,6 @@
 package de.dortmund.dohack2017.recipeswiper.features;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -8,6 +9,7 @@ import android.view.MenuItem;
 import android.widget.TextView;
 
 import de.dortmund.dohack2017.recipeswiper.R;
+import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 
 public class RezeptListeActivity extends AppCompatActivity {
 
@@ -44,4 +46,9 @@ public class RezeptListeActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
 
+    public void singleRezeptActivity(Rezept r)
+    {
+        Intent myIntent = new Intent(RezeptListeActivity.this, RezeptActivity.class);
+        myIntent.putExtra("rezept",r);
+    }
 }

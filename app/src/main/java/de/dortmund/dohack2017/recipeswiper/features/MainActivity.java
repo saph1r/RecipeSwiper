@@ -18,7 +18,9 @@ import java.util.ArrayList;
 
 import de.dortmund.dohack2017.recipeswiper.R;
 
+
 public class MainActivity extends AppCompatActivity {
+
 
     private TextView mTextMessage;
     private ArrayList<String> al;
