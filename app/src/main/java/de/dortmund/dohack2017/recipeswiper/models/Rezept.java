@@ -56,6 +56,14 @@ public class Rezept extends RealmObject implements Serializable {
         this.zutaten = zutaten;
     }
 
+    public int getImageResourceId() {
+        return imageResourceId;
+    }
+
+    public void setImageResourceId(int imageResourceId) {
+        this.imageResourceId = imageResourceId;
+    }
+
     public void printZutaten()
     {
         for(Zutat z : zutaten)

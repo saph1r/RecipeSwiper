@@ -15,8 +15,11 @@ import android.widget.Toast;
 import com.lorentzos.flingswipe.SwipeFlingAdapterView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import de.dortmund.dohack2017.recipeswiper.R;
+import de.dortmund.dohack2017.recipeswiper.db.RecipeSwiperDataSource;
+import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<SwipeCard> al;
     private SwipeCardAdapter arrayAdapter;
     private int i;
+    private RecipeSwiperDataSource recipeSwiperDataSource;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -52,15 +56,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        recipeSwiperDataSource = new RecipeSwiperDataSource();
+        recipeSwiperDataSource.open();
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) findViewById(R.id.swipe);
 
+        List<Rezept> rezepts = recipeSwiperDataSource.getAllRezepts();
         al = new ArrayList<SwipeCard>();
-        al.add(new SwipeCard("card1text1", R.drawable.bb));
-        al.add(new SwipeCard("card2text1", R.drawable.aa));
+        for(Rezept rezept: rezepts){
+            al.add(new SwipeCard(rezept));
+        }
 
 
         arrayAdapter = new SwipeCardAdapter(this, getLayoutInflater(), al);
@@ -87,7 +94,6 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onAdapterAboutToEmpty(int i) {
-                al.add(new SwipeCard("card1text1", R.drawable.bb));
                 arrayAdapter.notifyDataSetChanged();
                 Log.d("LIST", "notified");
                 i++;
