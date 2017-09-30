@@ -5,6 +5,8 @@ import android.media.Image;
 import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -17,12 +19,15 @@ public class Rezept extends RealmObject implements Serializable {
     private String id = UUID.randomUUID().toString();
     private String name;
     private String zubereitung;
-    private List<Zutat> zutaten;
+    private RealmList<Zutat> zutaten;
 
-    public Rezept(String name, String zubereitung, List<Zutat> zutaten) {
+    public Rezept(){
+
+    }
+
+    public Rezept(String name, String zubereitung) {
         this.name = name;
         this.zubereitung = zubereitung;
-        this.zutaten = zutaten;
     }
 
     public String getName() {
@@ -45,7 +50,7 @@ public class Rezept extends RealmObject implements Serializable {
         return zutaten;
     }
 
-    public void setZutaten(List<Zutat> zutaten) {
+    public void setZutaten(RealmList<Zutat> zutaten) {
         this.zutaten = zutaten;
     }
 

@@ -1,19 +1,37 @@
 package de.dortmund.dohack2017.recipeswiper.models;
 
+import java.io.Serializable;
+import java.util.UUID;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * Created by Sebastian on 30.09.2017.
  */
 
-public class Zutat {
-    private double menge;
+public class Zutat extends RealmObject implements Serializable{
+
+    @PrimaryKey
+    private String id = UUID.randomUUID().toString();
+    private String menge;
     private String einheit;
     private String name;
 
-    public double getMenge() {
+    public Zutat(){
+
+    }
+    public Zutat(String menge, String einheit, String name){
+        this.menge =menge;
+        this.einheit=einheit;
+        this.name=name;
+    }
+
+    public String getMenge() {
         return menge;
     }
 
-    public void setMenge(double menge) {
+    public void setMenge(String menge) {
         this.menge = menge;
     }
 
