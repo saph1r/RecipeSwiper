@@ -45,4 +45,18 @@ public class Rezept {
     public void setZutaten(List<Zutat> zutaten) {
         this.zutaten = zutaten;
     }
+
+    public void printZutaten()
+    {
+        for(Zutat z : zutaten)
+        {
+            z.print();
+        }
+    }
+
+    public void print()
+    {
+        System.out.print(name + "\n" + zubereitung);
+        printZutaten();
+    }
 }
