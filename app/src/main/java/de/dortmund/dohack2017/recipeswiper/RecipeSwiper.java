@@ -4,6 +4,9 @@ import android.app.Application;
 
 import java.util.regex.Pattern;
 
+import de.dortmund.dohack2017.recipeswiper.db.RecipeDataProvider;
+import de.dortmund.dohack2017.recipeswiper.db.RecipeSwiperDataSource;
+import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 import io.realm.Realm;
 import io.realm.RealmConfiguration;
 
