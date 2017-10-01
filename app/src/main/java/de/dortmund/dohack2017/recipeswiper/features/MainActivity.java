@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import de.dortmund.dohack2017.recipeswiper.R;
+import de.dortmund.dohack2017.recipeswiper.db.RecipeDataProvider;
 import de.dortmund.dohack2017.recipeswiper.db.RecipeSwiperDataSource;
 import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 
@@ -25,11 +26,13 @@ import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 public class MainActivity extends AppCompatActivity {
 
 
+
     private TextView mTextMessage;
     private ArrayList<SwipeCard> al;
     private SwipeCardAdapter arrayAdapter;
     private int i;
     private RecipeSwiperDataSource recipeSwiperDataSource;
+    private static boolean dataSourceIsOpen = false;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -56,19 +59,20 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        recipeSwiperDataSource = new RecipeSwiperDataSource();
-        recipeSwiperDataSource.open();
+
+        setDatabase();
+
         mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) findViewById(R.id.swipe);
 
         List<Rezept> rezepts = recipeSwiperDataSource.getAllRezepts();
+
         al = new ArrayList<SwipeCard>();
         for(Rezept rezept: rezepts){
             al.add(new SwipeCard(rezept));
         }
-
 
         arrayAdapter = new SwipeCardAdapter(this, getLayoutInflater(), al);
 
@@ -118,6 +122,19 @@ public class MainActivity extends AppCompatActivity {
 
     static void makeToast(Context ctx, String s){
         Toast.makeText(ctx, s, Toast.LENGTH_SHORT).show();
+    }
+
+    private void setDatabase(){
+        recipeSwiperDataSource = new RecipeSwiperDataSource();
+        recipeSwiperDataSource.open();
+        if(!dataSourceIsOpen) {
+            for (Rezept rezept : RecipeDataProvider.rezeptList) {
+                recipeSwiperDataSource.createRezept(rezept);
+            }
+            dataSourceIsOpen=true;
+        }
+
+
     }
 
 

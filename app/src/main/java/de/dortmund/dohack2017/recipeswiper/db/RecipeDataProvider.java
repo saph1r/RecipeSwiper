@@ -16,7 +16,7 @@ import io.realm.RealmList;
  */
 
 public class RecipeDataProvider {
-    public static List<Rezept> rezeptList;
+    public static List<Rezept> rezeptList = new ArrayList<>();
 
     static{
         addRezept(new Rezept(
