@@ -24,6 +24,20 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:text="@string/title_home" />
 
+        <ImageView
+            android:id="@+id/bild"
+            android:layout_width="500px"
+            android:layout_height="500px"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="50dp"/>
+
+        <TextView
+            android:id="@+id/zutaten"
+            android:layout_width="500px"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="310dp"
+            android:layout_marginLeft="50dp"/>
+
     </FrameLayout>
 
     <android.support.design.widget.BottomNavigationView
