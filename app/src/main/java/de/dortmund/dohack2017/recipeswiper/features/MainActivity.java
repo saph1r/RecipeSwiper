@@ -1,6 +1,8 @@
 package de.dortmund.dohack2017.recipeswiper.features;
 
+import android.content.ClipData;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -21,6 +23,7 @@ import de.dortmund.dohack2017.recipeswiper.R;
 import de.dortmund.dohack2017.recipeswiper.db.RecipeDataProvider;
 import de.dortmund.dohack2017.recipeswiper.db.RecipeSwiperDataSource;
 import de.dortmund.dohack2017.recipeswiper.models.Rezept;
+import de.dortmund.dohack2017.recipeswiper.models.SwipeResults;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -33,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
     private int i;
     private RecipeSwiperDataSource recipeSwiperDataSource;
     private static boolean dataSourceIsOpen = false;
+    private SwipeResults swipeResults = new SwipeResults();
+    private Intent myIntent;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -41,13 +46,14 @@ public class MainActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    mTextMessage.setText(R.string.title_home);
+
                     return true;
-                case R.id.navigation_dashboard:
-                    mTextMessage.setText(R.string.title_dashboard);
+                case R.id.navigation_dashboard: //RezeptListe
+                    myIntent = new Intent(MainActivity.this,RezeptListeActivity.class);
+                    nextActivity();
                     return true;
                 case R.id.navigation_notifications:
-                    mTextMessage.setText(R.string.title_notifications);
+
                     return true;
             }
             return false;
@@ -62,9 +68,9 @@ public class MainActivity extends AppCompatActivity {
 
         setDatabase();
 
-        mTextMessage = (TextView) findViewById(R.id.message);
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
         final SwipeFlingAdapterView flingAdapterView = (SwipeFlingAdapterView) findViewById(R.id.swipe);
 
         List<Rezept> rezepts = recipeSwiperDataSource.getAllRezepts();
@@ -76,7 +82,6 @@ public class MainActivity extends AppCompatActivity {
 
         arrayAdapter = new SwipeCardAdapter(this, getLayoutInflater(), al);
 
-
         flingAdapterView.setAdapter(arrayAdapter);
         flingAdapterView.setFlingListener(new SwipeFlingAdapterView.onFlingListener() {
             @Override
@@ -87,13 +92,15 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onLeftCardExit(Object o) {
-                makeToast(MainActivity.this, "Left");
+            public void onLeftCardExit(Object o) { //Verwerfen
+                SwipeCard sc = (SwipeCard)o;
+                Rezept rararar = sc.getRezept();
+                swipeResults.add(rararar, false);
             }
 
             @Override
-            public void onRightCardExit(Object o) {
-                makeToast(MainActivity.this, "Right");
+            public void onRightCardExit(Object o) { //"Like"
+                swipeResults.add(((SwipeCard)o).getRezept(),true);
             }
 
             @Override
@@ -133,9 +140,11 @@ public class MainActivity extends AppCompatActivity {
             }
             dataSourceIsOpen=true;
         }
-
-
     }
 
-
+    private void nextActivity()
+    {
+        myIntent.putExtra("swipeResults",swipeResults);
+        startActivity(myIntent);
+    }
 }

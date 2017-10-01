@@ -13,10 +13,11 @@ import java.util.UUID;
 public class SwipeResults implements Serializable {
     private String id = UUID.randomUUID().toString();
 
-    List<Rezept> rezepteJa;
-    List<Rezept> rezepteNein;
+    List<Rezept> rezepteJa = new ArrayList<Rezept>();
+    List<Rezept> rezepteNein = new ArrayList<Rezept>();
 
-    public SwipeResults() {}
+    public SwipeResults() {
+    }
     public SwipeResults(List<Rezept> rlJa, List<Rezept> rlNein)
     {
         rezepteJa = new ArrayList<Rezept>(rlJa);

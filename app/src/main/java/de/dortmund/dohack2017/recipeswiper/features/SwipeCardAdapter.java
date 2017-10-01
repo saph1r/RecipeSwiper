@@ -35,7 +35,7 @@ public class SwipeCardAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int position) {
-        return position;
+        return mSwipeCardArrayList.get(position);
     }
 
     @Override

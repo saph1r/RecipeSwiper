@@ -9,9 +9,11 @@ import de.dortmund.dohack2017.recipeswiper.models.Rezept;
 public class SwipeCard {
     private String text1;
     private int imageId;
+    private Rezept r;
 
     public SwipeCard(Rezept rezept) {
         this.text1 = rezept.getName();
+        r = rezept;
         this.imageId = rezept.getImageResourceId();
     }
 
@@ -30,4 +32,6 @@ public class SwipeCard {
     public void setImageId(int imageId) {
         this.imageId = imageId;
     }
+
+    public Rezept getRezept(){return r;}
 }

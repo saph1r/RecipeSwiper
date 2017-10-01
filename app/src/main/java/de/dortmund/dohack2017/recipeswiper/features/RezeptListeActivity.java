@@ -17,6 +17,7 @@ import java.util.List;
 
 import de.dortmund.dohack2017.recipeswiper.R;
 import de.dortmund.dohack2017.recipeswiper.models.Rezept;
+import de.dortmund.dohack2017.recipeswiper.models.SwipeResults;
 
 public class RezeptListeActivity extends AppCompatActivity {
 
@@ -51,7 +52,7 @@ public class RezeptListeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_rezept_liste);
 
         Intent myIntent = getIntent();
-        rezepte = (List<Rezept>) myIntent.getSerializableExtra("rezepteJa");
+        rezepte = new ArrayList<Rezept>(((SwipeResults) myIntent.getSerializableExtra("swipeResults")).getJaList());
 
         listView  = (ListView) findViewById(R.id.list);
         List<String> values = new ArrayList<String>();
@@ -82,5 +83,6 @@ public class RezeptListeActivity extends AppCompatActivity {
     {
         Intent myIntent = new Intent(RezeptListeActivity.this, RezeptActivity.class);
         myIntent.putExtra("rezept",r);
+        startActivity(myIntent);
     }
 }
